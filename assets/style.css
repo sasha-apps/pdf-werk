@@ -181,3 +181,7 @@ footer.site a { color: var(--muted); }
 .start .wahl p { width: 100%; margin: 0; }
 .start.over .drop { border-color: var(--accent); background: var(--accent-soft); }
 .suche { display: block; width: 100%; padding: 12px 14px; margin: 0 0 16px; font: inherit; border: 1px solid var(--line); border-radius: 8px; background: var(--surface); color: var(--text); }
+
+.badge a { color: inherit; text-decoration: none; }
+article.content { max-width: 70ch; }
+article.content .grid { max-width: none; }
