@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>How PDF-Werk works – privacy and technology</title>
+<meta name="description" content="How PDF-Werk edits your files without uploading them: technology, self-check, installing as an app and limits.">
+<link rel="canonical" href="https://sasha-apps.github.io/pdf-werk/en/how-it-works">
+<link rel="alternate" hreflang="de" href="https://sasha-apps.github.io/pdf-werk/so-funktioniert-es">
+<link rel="alternate" hreflang="en" href="https://sasha-apps.github.io/pdf-werk/en/how-it-works">
+<link rel="alternate" hreflang="x-default" href="https://sasha-apps.github.io/pdf-werk/so-funktioniert-es">
+<meta property="og:title" content="How PDF-Werk works – privacy and technology">
+<meta property="og:description" content="How PDF-Werk edits your files without uploading them: technology, self-check, installing as an app and limits.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://sasha-apps.github.io/pdf-werk/en/how-it-works">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://sasha-apps.github.io/pdf-werk/assets/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#d6402b">
+<link rel="manifest" href="/pdf-werk/manifest.webmanifest">
+<link rel="apple-touch-icon" href="/pdf-werk/assets/icon-192.png">
+<link rel="icon" href="/pdf-werk/assets/icon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/pdf-werk/assets/style.css">
+</head>
+<body>
+<header class="site"><div class="wrap">
+<a class="logo" href="/pdf-werk/en/">PDF<span>-Werk</span></a>
+<nav class="tools" aria-label="Tools"><a href="/pdf-werk/en/merge-pdf">Merge</a><a href="/pdf-werk/en/split-pdf">Split</a><a href="/pdf-werk/en/jpg-to-pdf">JPG to PDF</a><a href="/pdf-werk/en/rotate-pdf">Rotate</a><a href="/pdf-werk/en/delete-pdf-pages">Delete pages</a><a href="/pdf-werk/en/compress-pdf">Compress</a><a href="/pdf-werk/en/pdf-to-jpg">PDF to JPG</a><a href="/pdf-werk/en/organize-pdf">Organize</a><a href="/pdf-werk/en/sign-pdf">Sign</a><a href="/pdf-werk/en/fill-pdf-form">Fill form</a><a href="/pdf-werk/en/add-page-numbers">Page numbers</a><a href="/pdf-werk/en/add-watermark">Watermark</a></nav>
+<a class="lang" href="/pdf-werk/so-funktioniert-es" hreflang="de">Deutsch</a>
+</div></header>
+<main class="wrap"><section class="content">
+
+<h1>How PDF-Werk works</h1>
+<p class="lead">PDF-Werk edits your files on your own device. Here is exactly how, and what that means for you.</p>
+<h2>What happens to my file?</h2>
+<p>When you choose a file, your browser reads it into your device's memory. The tool is a JavaScript program that was loaded with the page; it edits the file there and offers the result as a download. The file is not sent to any server, neither ours nor anyone else's. When you close the tab, it is gone from memory.</p>
+<h2>How can I check that?</h2>
+<ul>
+<li><strong>Airplane mode test:</strong> open a tool, switch off the internet and use it. It keeps working. A service that uploads would fail.</li>
+<li><strong>For the technically curious:</strong> open the developer tools (F12) in Chrome or Firefox and go to the <em>Network</em> tab. While you edit a file, no request appears that transfers it.</li>
+</ul>
+<h2>What technology is behind it?</h2>
+<ul>
+<li><a href="https://pdf-lib.js.org/" rel="nofollow">pdf-lib</a> (MIT license) for merging, splitting, rotating, numbering, signing and watermarks. It copies pages instead of redrawing them, so text and quality stay intact.</li>
+<li><a href="https://mozilla.github.io/pdf.js/" rel="nofollow">pdf.js</a> by Mozilla (Apache 2.0 license), the same engine Firefox uses to show PDFs. It draws pages as images for previews, PDF to JPG and compression.</li>
+</ul>
+<p>Both libraries are hosted on our own web space.</p>
+<h2>Offline mode</h2>
+<p>If you want, your browser stores PDF-Werk's program files (not your documents) so all tools start without internet, e.g. on a train. You can turn it off at any time.</p>
+<div class="card" data-offline><div class="actions" style="margin-top:0"><button type="button" class="btn">Turn on offline mode</button><span class="status" role="status"></span></div></div>
+<h2>Install as an app</h2>
+<ul>
+<li><strong>iPhone and iPad (Safari):</strong> tap the share icon, then <em>Add to Home Screen</em>.</li>
+<li><strong>Android (Chrome):</strong> three-dot menu, then <em>Install app</em> or <em>Add to Home screen</em>.</li>
+<li><strong>Windows and Mac (Chrome, Edge):</strong> click the install icon in the address bar.</li>
+</ul>
+<h2>Limits</h2>
+<ul>
+<li>Password-protected PDFs can't be edited.</li>
+<li>Very large files need a lot of memory. On older phones, PDFs with hundreds of pages can get slow.</li>
+<li>Compress PDF turns pages into images; text can't be selected afterwards.</li>
+</ul>
+
+<h2>All 12 tools</h2>
+<p><a href="/pdf-werk/en/merge-pdf">Merge PDF</a> · <a href="/pdf-werk/en/split-pdf">Split PDF</a> · <a href="/pdf-werk/en/jpg-to-pdf">Convert images to PDF</a> · <a href="/pdf-werk/en/rotate-pdf">Rotate PDF</a> · <a href="/pdf-werk/en/delete-pdf-pages">Delete pages from a PDF</a> · <a href="/pdf-werk/en/compress-pdf">Compress PDF</a> · <a href="/pdf-werk/en/pdf-to-jpg">Convert PDF to JPG</a> · <a href="/pdf-werk/en/organize-pdf">Organize PDF pages</a> · <a href="/pdf-werk/en/sign-pdf">Sign PDF</a> · <a href="/pdf-werk/en/fill-pdf-form">Fill in a PDF form</a> · <a href="/pdf-werk/en/add-page-numbers">Add page numbers</a> · <a href="/pdf-werk/en/add-watermark">Add a watermark</a></p>
+</section></main>
+<footer class="site"><div class="wrap">
+<span>© PDF-Werk · Free PDF tools that run in your browser</span>
+<span><a href="/pdf-werk/en/how-it-works">How it works</a> · <a href="/pdf-werk/en/privacy">Privacy</a> · Licenses: <a href="/pdf-werk/assets/pdf-lib-LICENSE.md">pdf-lib (MIT)</a>, <a href="/pdf-werk/assets/pdfjs/LICENSE.txt">pdf.js (Apache 2.0)</a></span>
+</div></footer>
+<script src="/pdf-werk/assets/app.js"></script>
+</body>
+</html>

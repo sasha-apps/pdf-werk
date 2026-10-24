@@ -1,0 +1,29 @@
+{
+ "name": "PDF-Werk",
+ "short_name": "PDF-Werk",
+ "lang": "de",
+ "description": "Kostenlose PDF-Werkzeuge, die im Browser laufen, ohne Upload.",
+ "start_url": "/pdf-werk/",
+ "scope": "/pdf-werk/",
+ "display": "standalone",
+ "background_color": "#f6f7f9",
+ "theme_color": "#d6402b",
+ "icons": [
+  {
+   "src": "/pdf-werk/assets/icon-192.png",
+   "sizes": "192x192",
+   "type": "image/png"
+  },
+  {
+   "src": "/pdf-werk/assets/icon-512.png",
+   "sizes": "512x512",
+   "type": "image/png"
+  },
+  {
+   "src": "/pdf-werk/assets/icon-512-maskable.png",
+   "sizes": "512x512",
+   "type": "image/png",
+   "purpose": "maskable"
+  }
+ ]
+}

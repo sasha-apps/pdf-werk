@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ausweis Vorder- und Rückseite auf ein Blatt – als PDF, ohne Upload</title>
+<meta name="description" content="Vorder- und Rückseite von Personalausweis oder Führerschein auf eine A4-Seite, in Originalgröße zum Ausdrucken. Kostenlos und ohne Upload.">
+<link rel="canonical" href="https://sasha-apps.github.io/pdf-werk/ausweis-vorder-rueckseite-pdf">
+<meta property="og:title" content="Ausweis Vorder- und Rückseite auf ein Blatt – als PDF, ohne Upload">
+<meta property="og:description" content="Vorder- und Rückseite von Personalausweis oder Führerschein auf eine A4-Seite, in Originalgröße zum Ausdrucken. Kostenlos und ohne Upload.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://sasha-apps.github.io/pdf-werk/ausweis-vorder-rueckseite-pdf">
+<meta property="og:locale" content="de_DE">
+<meta property="og:image" content="https://sasha-apps.github.io/pdf-werk/assets/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#d6402b">
+<link rel="manifest" href="/pdf-werk/manifest.webmanifest">
+<link rel="apple-touch-icon" href="/pdf-werk/assets/icon-192.png">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebApplication", "name": "Ausweis: Vorder- und Rückseite auf ein Blatt", "description": "Vorder- und Rückseite von Personalausweis oder Führerschein auf eine A4-Seite, in Originalgröße zum Ausdrucken. Kostenlos und ohne Upload.", "url": "https://sasha-apps.github.io/pdf-werk/ausweis-vorder-rueckseite-pdf", "applicationCategory": "UtilitiesApplication", "operatingSystem": "Alle (Browser)", "browserRequirements": "Aktueller Browser mit JavaScript", "inLanguage": "de", "isAccessibleForFree": true, "offers": {"@type": "Offer", "price": "0", "priceCurrency": "EUR"}, "featureList": "Verarbeitung im Browser, kein Upload, keine Anmeldung, funktioniert offline", "publisher": {"@type": "Organization", "name": "PDF-Werk", "url": "https://sasha-apps.github.io/pdf-werk/"}}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "PDF-Werk", "item": "https://sasha-apps.github.io/pdf-werk/"}, {"@type": "ListItem", "position": 2, "name": "Bilder in PDF umwandeln", "item": "https://sasha-apps.github.io/pdf-werk/bilder-zu-pdf"}, {"@type": "ListItem", "position": 3, "name": "Ausweis: Vorder- und Rückseite auf ein Blatt", "item": "https://sasha-apps.github.io/pdf-werk/ausweis-vorder-rueckseite-pdf"}]}</script>
+<link rel="icon" href="/pdf-werk/assets/icon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/pdf-werk/assets/style.css">
+</head>
+<body>
+<header class="site"><div class="wrap">
+<a class="logo" href="/pdf-werk/">PDF<span>-Werk</span></a>
+<nav class="tools" aria-label="Werkzeuge"><a href="/pdf-werk/pdf-zusammenfuegen">Zusammenfügen</a><a href="/pdf-werk/pdf-teilen">Teilen</a><a href="/pdf-werk/bilder-zu-pdf" aria-current=page>Bilder zu PDF</a><a href="/pdf-werk/pdf-drehen">Drehen</a><a href="/pdf-werk/pdf-seiten-loeschen">Seiten löschen</a><a href="/pdf-werk/pdf-verkleinern">Verkleinern</a><a href="/pdf-werk/pdf-in-jpg">PDF in JPG</a><a href="/pdf-werk/pdf-seiten-sortieren">Sortieren</a><a href="/pdf-werk/pdf-unterschreiben">Unterschreiben</a><a href="/pdf-werk/pdf-formular-ausfuellen">Formular ausfüllen</a><a href="/pdf-werk/pdf-seitenzahlen">Seitenzahlen</a><a href="/pdf-werk/pdf-wasserzeichen">Wasserzeichen</a></nav>
+
+</div></header>
+<main class="wrap" data-tool="images" data-preset='{"layout": "id"}'>
+<span class="badge">Kostenlos · ohne Upload · ohne Anmeldung</span>
+<h1>Ausweis: Vorder- und Rückseite auf ein Blatt</h1>
+<p class="lead">Zwei Fotos vom Ausweis rein, ein A4-PDF raus: beide Seiten untereinander, in echter Kartengröße.</p>
+<div class="card">
+<label class="drop"><input type="file" accept="image/*" multiple><strong>Bilder hierher ziehen</strong><small>oder klicken zum Auswählen</small></label>
+<ul class="files"></ul>
+
+<div class="options">
+<label>Anordnung
+<select name="layout"><option value="one">Ein Bild pro Seite</option><option value="two">Zwei Bilder pro Seite, untereinander</option><option value="id">Ausweis: Vorder- und Rückseite in Originalgröße</option></select></label>
+<label data-show-when="layout=one">Seitengröße
+<select name="size"><option value="a4">A4 (hoch oder quer, je nach Bild)</option><option value="fit">Wie das Bild</option></select></label>
+<label data-show-when="layout=one&size=a4">Rand
+<select name="margin"><option value="yes">Mit Rand</option><option value="no">Ohne Rand</option></select></label>
+</div>
+<div class="actions"><button class="btn" id="run" disabled>PDF erstellen</button><span class="status" role="status"></span></div>
+<div class="results"></div>
+</div>
+<div class="ad" data-slot="auto"></div>
+<section class="content">
+<p><strong>Deine Dateien werden nicht hochgeladen. Alles passiert direkt in deinem Browser.</strong></p>
+
+<h2>So kommen beide Seiten auf ein Blatt</h2>
+<ol>
+<li>Fotografiere Vorder- und Rückseite des Ausweises, am besten auf dunklem Untergrund und ohne Blitz.</li>
+<li>Wähle oben beide Fotos aus, zuerst die Vorderseite. Mit den Pfeilen kannst du die Reihenfolge tauschen.</li>
+<li>Die Anordnung <em>Ausweis: Vorder- und Rückseite in Originalgröße</em> ist schon eingestellt. Klicke auf <em>PDF erstellen</em>.</li>
+</ol>
+<h2>Warum Originalgröße?</h2>
+<p>Personalausweis, Führerschein und Bankkarten haben dasselbe Format: ID-1 nach ISO/IEC 7810, 85,6 × 54 mm. PDF-Werk setzt beide Fotos genau in dieser Größe auf die Seite. Druckst du das PDF mit 100 % (nicht „an Seite anpassen“), ist die Kopie so groß wie der echte Ausweis.</p>
+<p>Schneide die Fotos vorher am Handy auf den Kartenrand zu, sonst wird der Hintergrund mit verkleinert.</p>
+<h2>Kopie richtig kennzeichnen</h2>
+<p>Nach § 20 Abs. 2 Personalausweisgesetz muss eine Ausweiskopie eindeutig und dauerhaft als Kopie erkennbar sein. Lege danach mit <a href="/pdf-werk/ausweiskopie-wasserzeichen">Ausweiskopie mit Wasserzeichen</a> den Text <em>KOPIE</em> darüber, am besten mit dem Zweck.</p>
+<p><small>Das ist eine allgemeine Information und keine Rechtsberatung.</small></p>
+
+
+<h2>Selbst prüfen: Es wird wirklich nichts hochgeladen</h2>
+<p>Öffne ein Werkzeug, schalte danach das WLAN aus oder dein Handy in den Flugmodus und benutze es. Es funktioniert trotzdem, weil die Bearbeitung auf deinem Gerät läuft. Ein Dienst, der deine Datei auf einen Server lädt, würde ohne Internet scheitern.</p>
+
+<p>Passend dazu: <a href="/pdf-werk/bilder-zu-pdf">Bilder in PDF umwandeln</a></p>
+<h2>Weitere PDF-Werkzeuge</h2>
+<div class="grid"><a class="card" href="/pdf-werk/pdf-zusammenfuegen"><strong>PDF zusammenfügen</strong><span>Mehrere PDFs zu einer Datei verbinden, in der Reihenfolge, die du festlegst.</span></a><a class="card" href="/pdf-werk/pdf-teilen"><strong>PDF teilen</strong><span>Ein PDF in mehrere Dateien aufteilen oder einzelne Seiten herausholen.</span></a><a class="card" href="/pdf-werk/pdf-drehen"><strong>PDF drehen</strong><span>Quer gescannte oder auf dem Kopf stehende Seiten dauerhaft richtig herum drehen.</span></a><a class="card" href="/pdf-werk/pdf-seiten-loeschen"><strong>Seiten aus PDF löschen</strong><span>Leere, doppelte oder überflüssige Seiten aus einem PDF entfernen.</span></a><a class="card" href="/pdf-werk/pdf-verkleinern"><strong>PDF verkleinern</strong><span>Große PDFs, etwa Scans, so klein machen, dass sie per E-Mail oder in ein Upload-Feld passen.</span></a><a class="card" href="/pdf-werk/pdf-in-jpg"><strong>PDF in JPG umwandeln</strong><span>Jede Seite eines PDFs als Bild speichern, zum Beispiel für Instagram, WhatsApp oder eine Präsentation.</span></a><a class="card" href="/pdf-werk/pdf-seiten-sortieren"><strong>PDF-Seiten sortieren</strong><span>Alle Seiten als Vorschau sehen, in die richtige Reihenfolge ziehen, einzeln drehen oder löschen.</span></a><a class="card" href="/pdf-werk/pdf-unterschreiben"><strong>PDF unterschreiben</strong><span>Mit Maus, Stift oder Finger unterschreiben und die Unterschrift ins PDF setzen, ohne Ausdrucken und Einscannen.</span></a><a class="card" href="/pdf-werk/pdf-formular-ausfuellen"><strong>PDF-Formular ausfüllen</strong><span>Anträge, Vordrucke und Formulare am Rechner oder Handy ausfüllen und als PDF speichern.</span></a><a class="card" href="/pdf-werk/pdf-seitenzahlen"><strong>Seitenzahlen einfügen</strong><span>Ein PDF durchnummerieren, zum Beispiel für Hausarbeiten, Bewerbungen oder Berichtshefte.</span></a><a class="card" href="/pdf-werk/pdf-wasserzeichen"><strong>Wasserzeichen einfügen</strong><span>Einen Text wie „ENTWURF“ oder „Nur zur Vorlage bei …“ über alle Seiten legen, etwa für Ausweiskopien.</span></a></div>
+</section>
+<div class="ad" data-slot="auto"></div>
+</main>
+<footer class="site"><div class="wrap">
+<span>© PDF-Werk · Kostenlose PDF-Werkzeuge, die im Browser laufen</span>
+<span><a href="/pdf-werk/so-funktioniert-es">So funktioniert es</a> · <a href="/pdf-werk/datenschutz">Datenschutz</a> · Lizenzen: <a href="/pdf-werk/assets/pdf-lib-LICENSE.md">pdf-lib (MIT)</a>, <a href="/pdf-werk/assets/pdfjs/LICENSE.txt">pdf.js (Apache 2.0)</a></span>
+</div></footer>
+<script src="/pdf-werk/assets/pdf-lib.min.js"></script>
+<script src="/pdf-werk/assets/app.js"></script>
+</body>
+</html>
