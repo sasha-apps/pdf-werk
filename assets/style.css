@@ -4,7 +4,7 @@
   --text: #1c2230;
   --muted: #5d6577;
   --line: #dfe3ea;
-  --accent: #d6402b;
+  --accent: #c0371f; /* dunkler als das Logo-Rot, damit Text auf Hell den Kontrast 4,5:1 schafft */
   --accent-text: #ffffff;
   --accent-soft: #fdecea;
   --ok: #1f7a4d;
