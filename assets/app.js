@@ -501,6 +501,82 @@ async function toPng(file) {
   return blob.arrayBuffer();
 }
 
+// ---- Übergabe zwischen Seiten -----------------------------------------------
+// „Weiter mit diesem PDF“ und die Ablage auf der Startseite legen Dateien kurz in
+// IndexedDB (nur im eigenen Browser) und öffnen das Werkzeug mit #weiter.
+const UEBERGABE = "pdfwerk";
+function idb() {
+  return new Promise((resolve, reject) => {
+    const req = indexedDB.open(UEBERGABE, 1);
+    req.onupgradeneeded = () => req.result.createObjectStore("dateien");
+    req.onsuccess = () => resolve(req.result);
+    req.onerror = () => reject(req.error);
+  });
+}
+async function uebergeben(files, url) {
+  try {
+    const db = await idb();
+    await new Promise((resolve, reject) => {
+      const tx = db.transaction("dateien", "readwrite");
+      tx.objectStore("dateien").put(files.map((f) => ({ name: f.name, type: f.type, blob: f })), "weiter");
+      tx.oncomplete = resolve;
+      tx.onerror = () => reject(tx.error);
+    });
+    location.href = url + "#weiter";
+  } catch {
+    location.href = url; // ohne IndexedDB (z. B. privater Modus): Werkzeug trotzdem öffnen
+  }
+}
+async function abholen() {
+  try {
+    const db = await idb();
+    return await new Promise((resolve) => {
+      const tx = db.transaction("dateien", "readwrite");
+      const store = tx.objectStore("dateien");
+      const req = store.get("weiter");
+      req.onsuccess = () => {
+        store.delete("weiter");
+        resolve((req.result || []).map((d) => new File([d.blob], d.name, { type: d.type })));
+      };
+      req.onerror = () => resolve([]);
+    });
+  } catch {
+    return [];
+  }
+}
+
+// Liste der Werkzeuge dieser Sprache, von build.py in die Seite geschrieben
+function werkzeuge() {
+  const el = document.getElementById("pdfwerk-werkzeuge");
+  return el ? JSON.parse(el.textContent) : [];
+}
+
+function passt(accept, f) {
+  return accept.split(",").some((a) => {
+    a = a.trim();
+    return a.endsWith("/*") ? f.type.startsWith(a.slice(0, -1)) : f.type === a || f.name.toLowerCase().endsWith(a);
+  });
+}
+
+// Eingestellte Optionen pro Werkzeug merken (nur Auswahllisten, nur in diesem Browser)
+function merken(tool, opts) {
+  const key = "pdfwerk:" + tool;
+  const lesen = () => { try { return JSON.parse(localStorage.getItem(key) || "{}"); } catch { return {}; } };
+  return {
+    laden() {
+      for (const [k, v] of Object.entries(lesen())) {
+        const el = opts.querySelector(`select[name=${k}]`);
+        if (el && [...el.options].some((o) => o.value === v)) el.value = v;
+      }
+    },
+    speichern() {
+      const daten = {};
+      opts.querySelectorAll("select[name]").forEach((el) => { daten[el.name] = el.value; });
+      try { localStorage.setItem(key, JSON.stringify(daten)); } catch {}
+    },
+  };
+}
+
 // ---- Oberfläche ----------------------------------------------------------
 // Unterschriftsfeld: mit Maus, Stift oder Finger zeichnen. signature() gibt die
 // Unterschrift als PNG mit durchsichtigem Hintergrund zurück, eng zugeschnitten.
@@ -794,10 +870,7 @@ function setupTool(main) {
   }
 
   function add(list) {
-    const accepted = [...list].filter((f) => input.accept.split(",").some((a) => {
-      a = a.trim();
-      return a.endsWith("/*") ? f.type.startsWith(a.slice(0, -1)) : f.type === a || f.name.toLowerCase().endsWith(a);
-    }));
+    const accepted = [...list].filter((f) => passt(input.accept, f));
     setFiles(multiple ? files.concat(accepted) : accepted.slice(0, 1));
     if (accepted.length < list.length) say(t("Einige Dateien hatten das falsche Format und wurden übersprungen.", "Some files had the wrong format and were skipped."), "err");
   }
@@ -805,7 +878,22 @@ function setupTool(main) {
   input.addEventListener("change", () => { add(input.files); input.value = ""; });
   ["dragenter", "dragover"].forEach((e) => drop.addEventListener(e, (ev) => { ev.preventDefault(); drop.classList.add("over"); }));
   ["dragleave", "drop"].forEach((e) => drop.addEventListener(e, () => drop.classList.remove("over")));
-  drop.addEventListener("drop", (ev) => { ev.preventDefault(); add(ev.dataTransfer.files); });
+  drop.addEventListener("drop", (ev) => { ev.preventDefault(); ev.stopPropagation(); add(ev.dataTransfer.files); });
+  // Dateien dürfen überall auf der Seite abgelegt oder mit Strg+V eingefügt werden
+  document.addEventListener("dragover", (ev) => { if (ev.dataTransfer.types.includes("Files")) ev.preventDefault(); });
+  document.addEventListener("drop", (ev) => {
+    if (!ev.dataTransfer.files.length) return;
+    ev.preventDefault();
+    add(ev.dataTransfer.files);
+  });
+  document.addEventListener("paste", (ev) => {
+    const pasted = [...(ev.clipboardData ? ev.clipboardData.files : [])];
+    const ziel = ev.target;
+    if (!pasted.length || (ziel && ziel.closest && ziel.closest("input, textarea"))) return;
+    ev.preventDefault();
+    // eingefügte Screenshots heißen oft nur „image.png“, das macht sie unterscheidbar
+    add(pasted.map((f, i) => new File([f], f.name === "image.png" ? `${t("eingefuegt", "pasted")}_${Date.now() % 100000}_${i + 1}.png` : f.name, { type: f.type })));
+  });
 
   // Optionsfelder mit data-show-when="name=wert" nur zeigen, wenn passend
   const opts = $(".options", main);
@@ -818,6 +906,8 @@ function setupTool(main) {
       });
     });
   }
+  const gedaechtnis = opts ? merken(tool, opts) : null;
+  if (gedaechtnis && !main.dataset.preset) gedaechtnis.laden();
   if (opts && main.dataset.preset) {
     for (const [k, v] of Object.entries(JSON.parse(main.dataset.preset))) {
       const el = opts.querySelector(`[name=${k}]`);
@@ -828,6 +918,7 @@ function setupTool(main) {
   toggle();
 
   run.addEventListener("click", async () => {
+    if (gedaechtnis && !main.dataset.preset) gedaechtnis.speichern();
     const opt = {};
     opts && opts.querySelectorAll("[name]").forEach((el) => { opt[el.name] = el.value; });
     run.disabled = true;
@@ -846,6 +937,7 @@ function setupTool(main) {
         results.append(fileLink(await zip(out), name, "application/zip", t("Alle als ZIP herunterladen", "Download all as ZIP")));
       }
       out.forEach((r) => results.append(fileLink(r.data, r.name, r.type)));
+      if (out.length === 1 && !out[0].type) weiterMit(results, new File([out[0].data], out[0].name, { type: "application/pdf" }), tool);
       const note = out.length === 1 && out[0].note ? " " + out[0].note : "";
       say(out.length === 1 ? t("Fertig.", "Done.") + note : t(`Fertig, ${out.length} Dateien.`, `Done, ${out.length} files.`), "ok");
     } catch (e) {
@@ -857,11 +949,88 @@ function setupTool(main) {
   });
 
   render();
+  // Kommt der Nutzer über „Weiter mit …“ oder die Startseite, liegen die Dateien schon bereit
+  if (location.hash === "#weiter") {
+    history.replaceState(null, "", location.pathname + location.search);
+    abholen().then((fs) => { if (fs.length) add(fs); });
+  }
+}
+
+// Unter dem Ergebnis: dasselbe PDF direkt im nächsten Werkzeug öffnen
+function weiterMit(results, file, aktuell) {
+  const ziele = werkzeuge().filter((w) => w.pdf && w.tool !== aktuell && w.tool !== "merge");
+  if (!ziele.length) return;
+  const box = document.createElement("div");
+  box.className = "weiter";
+  const cap = document.createElement("span");
+  cap.textContent = t("Weiter mit diesem PDF:", "Continue with this PDF:");
+  box.append(cap);
+  ziele.forEach((w) => {
+    const b = document.createElement("button");
+    b.type = "button";
+    b.className = "btn small ghost";
+    b.textContent = w.name;
+    b.onclick = () => uebergeben([file], w.url);
+    box.append(b);
+  });
+  results.append(box);
+}
+
+// Startseite: Datei ablegen, dann Werkzeug wählen; Suchfeld filtert die Werkzeuge
+function setupStart(box) {
+  const input = $("input[type=file]", box), wahl = $(".wahl", box);
+  let files = [];
+  function zeigen() {
+    wahl.innerHTML = "";
+    if (!files.length) return;
+    const pdf = files.every((f) => passt("application/pdf,.pdf", f));
+    const bild = files.every((f) => f.type.startsWith("image/"));
+    const cap = document.createElement("p");
+    cap.className = "status" + (pdf || bild ? "" : " err");
+    cap.textContent = pdf || bild
+      ? t(`${files.length === 1 ? files[0].name : files.length + " Dateien"}: Was möchtest du tun?`, `${files.length === 1 ? files[0].name : files.length + " files"}: what do you want to do?`)
+      : t("Bitte nur PDFs oder nur Bilder wählen.", "Please choose only PDFs or only images.");
+    wahl.append(cap);
+    werkzeuge().filter((w) => (pdf && w.pdf && (files.length > 1 ? w.multiple : true)) || (bild && !w.pdf)).forEach((w) => {
+      const b = document.createElement("button");
+      b.type = "button";
+      b.className = "btn small";
+      b.textContent = w.name;
+      b.onclick = () => uebergeben(w.multiple ? files : files.slice(0, 1), w.url);
+      wahl.append(b);
+    });
+  }
+  const nehmen = (list) => { if (list.length) { files = [...list]; zeigen(); } };
+  input.addEventListener("change", () => { nehmen(input.files); input.value = ""; });
+  document.addEventListener("dragover", (ev) => { ev.preventDefault(); box.classList.add("over"); });
+  document.addEventListener("dragleave", (ev) => { if (!ev.relatedTarget) box.classList.remove("over"); });
+  document.addEventListener("drop", (ev) => { ev.preventDefault(); box.classList.remove("over"); nehmen(ev.dataTransfer.files); });
+  document.addEventListener("paste", (ev) => { if (ev.clipboardData && ev.clipboardData.files.length) nehmen(ev.clipboardData.files); });
+}
+
+function setupSuche(feld) {
+  const karten = [...document.querySelectorAll(".grid a.card")];
+  const leer = document.getElementById("suche-leer");
+  const norm = (x) => x.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+  feld.addEventListener("input", () => {
+    const q = norm(feld.value.trim());
+    let n = 0;
+    karten.forEach((k) => {
+      const ok = !q || q.split(/\s+/).every((w) => norm(k.textContent + " " + (k.dataset.stichworte || "")).includes(w));
+      k.hidden = !ok;
+      if (ok) n++;
+    });
+    if (leer) leer.hidden = n > 0;
+  });
 }
 
 setupAds();
 const main = document.querySelector("main[data-tool]");
 if (main) setupTool(main);
+const startBox = document.querySelector("[data-start]");
+if (startBox) setupStart(startBox);
+const suche = document.getElementById("suche");
+if (suche) setupSuche(suche);
 // Offline-Modus: Der Service Worker speichert die Programmdateien im Browser. Das geschieht
 // nur auf ausdrücklichen Wunsch (Knopf auf „So funktioniert es“), damit keine Einwilligung
 // nach § 25 TDDDG nötig ist. Ein bereits eingerichteter Worker wird beim Laden aktualisiert.

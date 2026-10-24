@@ -172,3 +172,12 @@ footer.site a { color: var(--muted); }
 .field textarea { min-height: 5em; resize: vertical; }
 .field.check { grid-template-columns: auto 1fr; align-items: center; }
 .field.check input { width: 1.2em; height: 1.2em; order: -1; }
+
+.weiter { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; margin-top: 4px; padding-top: 10px; border-top: 1px solid var(--line); }
+.weiter span { color: var(--muted); font-size: .9rem; margin-right: 4px; }
+.start { margin: 4px 0 20px; }
+.start .wahl { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-top: 12px; }
+.start .wahl:empty { display: none; }
+.start .wahl p { width: 100%; margin: 0; }
+.start.over .drop { border-color: var(--accent); background: var(--accent-soft); }
+.suche { display: block; width: 100%; padding: 12px 14px; margin: 0 0 16px; font: inherit; border: 1px solid var(--line); border-radius: 8px; background: var(--surface); color: var(--text); }
