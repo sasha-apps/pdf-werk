@@ -186,3 +186,5 @@ footer.site a { color: var(--muted); }
 article.content { max-width: 70ch; }
 article.content .grid { max-width: none; }
 kbd { font: .85em ui-monospace, SFMono-Regular, Menlo, monospace; padding: 1px 6px; border: 1px solid var(--line); border-bottom-width: 2px; border-radius: 4px; background: var(--surface); white-space: nowrap; }
+.options .merken { display: flex; align-items: center; gap: 8px; font-weight: 400; color: var(--muted); font-size: .95rem; }
+.options .merken input { width: 1.1em; height: 1.1em; }

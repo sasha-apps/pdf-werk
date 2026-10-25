@@ -558,21 +558,33 @@ function passt(accept, f) {
   });
 }
 
-// Eingestellte Optionen pro Werkzeug merken (nur Auswahllisten, nur in diesem Browser)
+// Eingestellte Optionen pro Werkzeug merken (nur Auswahllisten, nur in diesem Browser).
+// Nur wenn der Nutzer das Häkchen „Einstellungen merken“ setzt: Speichern auf dem Gerät ist
+// dann ausdrücklich gewünscht (§ 25 Abs. 2 Nr. 2 TDDDG). Häkchen weg = gespeicherte Werte weg.
 function merken(tool, opts) {
   const key = "pdfwerk:" + tool;
-  const lesen = () => { try { return JSON.parse(localStorage.getItem(key) || "{}"); } catch { return {}; } };
+  const box = opts.querySelector("input[data-merken]");
+  const lesen = () => { try { return JSON.parse(localStorage.getItem(key) || "null"); } catch { return null; } };
+  if (box) box.addEventListener("change", () => {
+    if (box.checked) speichern();
+    else try { localStorage.removeItem(key); } catch {}
+  });
+  function speichern() {
+    if (!box || !box.checked) return;
+    const daten = {};
+    opts.querySelectorAll("select[name]").forEach((el) => { daten[el.name] = el.value; });
+    try { localStorage.setItem(key, JSON.stringify(daten)); } catch {}
+  }
   return {
+    speichern,
     laden() {
-      for (const [k, v] of Object.entries(lesen())) {
+      const gespeichert = lesen();
+      if (!gespeichert) return;
+      if (box) box.checked = true;
+      for (const [k, v] of Object.entries(gespeichert)) {
         const el = opts.querySelector(`select[name=${k}]`);
         if (el && [...el.options].some((o) => o.value === v)) el.value = v;
       }
-    },
-    speichern() {
-      const daten = {};
-      opts.querySelectorAll("select[name]").forEach((el) => { daten[el.name] = el.value; });
-      try { localStorage.setItem(key, JSON.stringify(daten)); } catch {}
     },
   };
 }

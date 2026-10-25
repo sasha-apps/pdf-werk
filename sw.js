@@ -1,6 +1,6 @@
 // PDF-Werk Service Worker: macht die Seite offline nutzbar und installierbar.
 // Seiten: erst Netz, sonst Cache. Dateien in assets/: erst Cache, im Hintergrund auffrischen.
-const CACHE = "pdfwerk-9d5dbb28cf24";
+const CACHE = "pdfwerk-b459c69fbd0e";
 const BASE = "/";
 
 self.addEventListener("install", (e) => {
