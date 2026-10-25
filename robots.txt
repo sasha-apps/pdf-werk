@@ -1,3 +1,3 @@
 User-agent: *
 Allow: /
-Sitemap: https://sasha-apps.github.io/pdf-werk/sitemap.xml
+Sitemap: https://pdf-werk.de/sitemap.xml

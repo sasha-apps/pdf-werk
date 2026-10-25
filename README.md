@@ -3,18 +3,18 @@
 **Kostenlose PDF-Werkzeuge, die komplett im Browser laufen. Deine Dateien werden nicht hochgeladen.**
 *Free PDF tools that run entirely in your browser. Your files are never uploaded.*
 
-👉 **https://sasha-apps.github.io/pdf-werk/** · [English](https://sasha-apps.github.io/pdf-werk/en/)
+👉 **https://pdf-werk.de/** · [English](https://pdf-werk.de/en/)
 
 ## Werkzeuge
 
 | | |
 |---|---|
-| [PDF zusammenfügen](https://sasha-apps.github.io/pdf-werk/pdf-zusammenfuegen) | [PDF verkleinern](https://sasha-apps.github.io/pdf-werk/pdf-verkleinern) |
-| [PDF teilen](https://sasha-apps.github.io/pdf-werk/pdf-teilen) | [PDF in JPG](https://sasha-apps.github.io/pdf-werk/pdf-in-jpg) |
-| [Bilder zu PDF](https://sasha-apps.github.io/pdf-werk/bilder-zu-pdf) | [Seiten sortieren](https://sasha-apps.github.io/pdf-werk/pdf-seiten-sortieren) |
-| [PDF drehen](https://sasha-apps.github.io/pdf-werk/pdf-drehen) | [PDF unterschreiben](https://sasha-apps.github.io/pdf-werk/pdf-unterschreiben) |
-| [Seiten löschen](https://sasha-apps.github.io/pdf-werk/pdf-seiten-loeschen) | [Formular ausfüllen](https://sasha-apps.github.io/pdf-werk/pdf-formular-ausfuellen) |
-| [Seitenzahlen](https://sasha-apps.github.io/pdf-werk/pdf-seitenzahlen) | [Wasserzeichen](https://sasha-apps.github.io/pdf-werk/pdf-wasserzeichen) |
+| [PDF zusammenfügen](https://pdf-werk.de/pdf-zusammenfuegen) | [PDF verkleinern](https://pdf-werk.de/pdf-verkleinern) |
+| [PDF teilen](https://pdf-werk.de/pdf-teilen) | [PDF in JPG](https://pdf-werk.de/pdf-in-jpg) |
+| [Bilder zu PDF](https://pdf-werk.de/bilder-zu-pdf) | [Seiten sortieren](https://pdf-werk.de/pdf-seiten-sortieren) |
+| [PDF drehen](https://pdf-werk.de/pdf-drehen) | [PDF unterschreiben](https://pdf-werk.de/pdf-unterschreiben) |
+| [Seiten löschen](https://pdf-werk.de/pdf-seiten-loeschen) | [Formular ausfüllen](https://pdf-werk.de/pdf-formular-ausfuellen) |
+| [Seitenzahlen](https://pdf-werk.de/pdf-seitenzahlen) | [Wasserzeichen](https://pdf-werk.de/pdf-wasserzeichen) |
 
 ## Warum?
 
