@@ -1,1 +1,0 @@
-# Nach der AdSense-Freigabe: ADSENSE_PUB in build.py setzen und neu bauen.
